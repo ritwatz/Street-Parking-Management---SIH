@@ -1,9 +1,11 @@
 # Street-Parking-Management---SIH
-
-pip install opencv-python
-
-
-pip install ultralytics
+First of all the following Libraries need to be installed
+<ul>
+<li>pip install opencv-python</li>
 
 
-pip install cvzone
+<li>pip install ultralytics</li>
+
+
+<li>pip install cvzone</li>
+</ul>
