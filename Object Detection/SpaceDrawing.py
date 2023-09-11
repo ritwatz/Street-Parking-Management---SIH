@@ -8,7 +8,7 @@ cap = cv2.VideoCapture('easy1.mp4')
 drawing=False
 area_names=[]
 try:
-    with open("file","wb") as f:
+    with open("abcd","r") as f:
             data=pickle.load(f)
             polylines,area_names=data['polylines'],data['area_names']
 except:
@@ -44,11 +44,11 @@ while True:
         cvzone.putTextRect(frame,f'{area_names[i]}',tuple(polyline[0]),1,1)
     cv2.imshow('FRAME', frame)
     cv2.setMouseCallback('FRAME',draw)
-    if cv2.waitKey(1) & 0xFF==ord('d'):
-        break
     if cv2.waitKey(1) & 0xFF==ord('s'):
-        with open("file","wb") as f:
+        with open("abcd","wb") as f:
             data={'polylines':polyline,'area_names':area_names}
             pickle.dump(data,f)
+    if cv2.waitKey(1) & 0xFF==ord('d'):
+        break
 cap.release()
 cv2.destroyAllWindows()
