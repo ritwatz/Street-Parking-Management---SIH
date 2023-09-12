@@ -36,7 +36,7 @@ for i in range(12):
 cv2.namedWindow('RGB')
 cv2.setMouseCallback('RGB', RGB)
 
-cap = cv2.VideoCapture('parking1.mp4')
+cap = cv2.VideoCapture('easy1.mp4')
 
 my_file = open("coco.txt", "r")
 data = my_file.read()
