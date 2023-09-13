@@ -20,15 +20,15 @@ total_price = 0
 price_per_hour=0
 def price(num_spots, max_hours):
     if num_spots<=12 and num_spots>8:
-        price_per_hour=20
+        price_per_hour=75
     elif num_spots>4 and num_spots<=8:
-        price_per_hour=25
+        price_per_hour=90
     elif num_spots>2 and num_spots<=4:
-        price_per_hour=30
-    else:
-        price_per_hour=35
+        price_per_hour=100
+    elif num_spots<=2:
+        price_per_hour=120
     total_price = max_hours*price_per_hour/60
-    return total_price
+    return np.round(total_price)
 cost = {}
 for i in range(12):
     cost[i] = 0
@@ -36,7 +36,7 @@ for i in range(12):
 cv2.namedWindow('RGB')
 cv2.setMouseCallback('RGB', RGB)
 
-cap = cv2.VideoCapture('parking1.mp4')
+cap = cv2.VideoCapture('parking2.mp4')
 
 my_file = open("coco.txt", "r")
 data = my_file.read()
@@ -106,65 +106,65 @@ while True:
 
             results1 = cv2.pointPolygonTest(np.array(area1, np.int32), ((cx, cy)), False)
             if results1 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list1.append(c)
                 cv2.putText(frame, str(c), (x1, y1), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
 
             results2 = cv2.pointPolygonTest(np.array(area2, np.int32), ((cx, cy)), False)
             if results2 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list2.append(c)
 
             results3 = cv2.pointPolygonTest(np.array(area3, np.int32), ((cx, cy)), False)
             if results3 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list3.append(c)
             results4 = cv2.pointPolygonTest(np.array(area4, np.int32), ((cx, cy)), False)
             if results4 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list4.append(c)
             results5 = cv2.pointPolygonTest(np.array(area5, np.int32), ((cx, cy)), False)
             if results5 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list5.append(c)
             results6 = cv2.pointPolygonTest(np.array(area6, np.int32), ((cx, cy)), False)
             if results6 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list6.append(c)
             results7 = cv2.pointPolygonTest(np.array(area7, np.int32), ((cx, cy)), False)
             if results7 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list7.append(c)
             results8 = cv2.pointPolygonTest(np.array(area8, np.int32), ((cx, cy)), False)
             if results8 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list8.append(c)
             results9 = cv2.pointPolygonTest(np.array(area9, np.int32), ((cx, cy)), False)
             if results9 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list9.append(c)
             results10 = cv2.pointPolygonTest(np.array(area10, np.int32), ((cx, cy)), False)
             if results10 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list10.append(c)
             results11 = cv2.pointPolygonTest(np.array(area11, np.int32), ((cx, cy)), False)
             if results11 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list11.append(c)
             results12 = cv2.pointPolygonTest(np.array(area12, np.int32), ((cx, cy)), False)
             if results12 >= 0:
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list12.append(c)
 
@@ -182,151 +182,184 @@ while True:
     a12 = (len(list12))
     o = (a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12)
     space = (12 - o)
-    print(space)
+    #print(space)
     if a1 == 1:
         cv2.polylines(frame, [np.array(area1, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('1'), (50, 441), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
         current_time1 = time.time()
         true_time1 += current_time1 - start_time
         start_time = current_time1
-        c1 = price(space, true_time1)
-        cost[0] = c1
+        cost[0] = price(space, true_time1)
+
     else:
         cv2.polylines(frame, [np.array(area1, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('1'), (50, 441), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
+        cv2.putText(frame, str('1'), (50, 441), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[0] > 0:
+            print(f"price of slot 1 is {cost[0]}")
         cost[0] = 0
     if a2 == 1:
+
         cv2.polylines(frame, [np.array(area2, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('2'), (106, 440), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
         current_time2 = time.time()
         true_time2 += current_time2 - start_time
         start_time = current_time2
-        c2 = price(space, true_time2)
-        cost[1] = c2
+
+        cost[1] = price(space, true_time2)
     else:
         cv2.polylines(frame, [np.array(area2, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('2'), (106, 440), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[1]=0
+        cv2.putText(frame, str('2'), (106, 440), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[1] > 0:
+            print(f"price of slot 2 is {cost[1]}")
+        cost[1] = 0
     if a3 == 1:
         cv2.polylines(frame, [np.array(area3, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('3'), (175, 436), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time3 = time.time()
         true_time3 += current_time3 - start_time
         start_time = current_time3
-        c3 = price(space, true_time3)
-        cost[2] = c3
+        cost[2] = price(space, true_time3)
+
     else:
         cv2.polylines(frame, [np.array(area3, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('3'), (175, 436), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[2]=0
+        cv2.putText(frame, str('3'), (175, 436), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[2] > 0:
+            print(f"price of slot 3 is {cost[2]}")
+        cost[2] = 0
     if a4 == 1:
         cv2.polylines(frame, [np.array(area4, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('4'), (250, 436), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time4 = time.time()
         true_time4 += current_time4 - start_time
         start_time = current_time4
-        c4 = price(space, true_time4)
-        cost[3] = c4
+        cost[3] = price(space, true_time4)
+
     else:
         cv2.polylines(frame, [np.array(area4, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('4'), (250, 436), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[3]=0
+        cv2.putText(frame, str('4'), (250, 436), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[3] > 0:
+            print(f"price of slot 4 is {cost[3]}")
+        cost[3] = 0
     if a5 == 1:
         cv2.polylines(frame, [np.array(area5, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('5'), (315, 429), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time5 = time.time()
         true_time5 += current_time5 - start_time
         start_time = current_time5
-        c5 = price(space, true_time5)
-        cost[4] = c5
+        cost[4] = price(space, true_time5)
+
     else:
         cv2.polylines(frame, [np.array(area5, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('5'), (315, 429), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[4]=0
+        cv2.putText(frame, str('5'), (315, 429), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[4] > 0:
+            print(f"price of slot 5 is {cost[4]}")
+        cost[4] = 0
     if a6 == 1:
         cv2.polylines(frame, [np.array(area6, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('6'), (386, 421), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time6 = time.time()
         true_time6 += current_time6 - start_time
         start_time = current_time6
-        c6 = price(space, true_time6)
-        cost[5] = c6
+        cost[5] = price(space, true_time6)
+
     else:
         cv2.polylines(frame, [np.array(area6, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('6'), (386, 421), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[5]=0
+        cv2.putText(frame, str('6'), (386, 421), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[5] > 0:
+            print(f"price of slot 6 is {cost[5]}")
+        cost[5] = 0
     if a7 == 1:
         cv2.polylines(frame, [np.array(area7, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('7'), (456, 414), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time7 = time.time()
         true_time7 += current_time7 - start_time
         start_time = current_time7
-        c7 = price(space, true_time7)
-        cost[6] = c7
+        cost[6] = price(space, true_time7)
+
     else:
         cv2.polylines(frame, [np.array(area7, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('7'), (456, 414), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[6]=0
+        cv2.putText(frame, str('7'), (456, 414), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[6] > 0:
+            print(f"price of slot 7 is {cost[6]}")
+        cost[6] = 0
     if a8 == 1:
         cv2.polylines(frame, [np.array(area8, np.int32)], True, (0, 0, 255), 2)
-        cv2.putText(frame, str('8'), (527, 406), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        cv2.putText(frame, str('8'), (524, 406), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time8 = time.time()
         true_time8 += current_time8 - start_time
         start_time = current_time8
-        c8 = price(space, true_time8)
-        cost[7] = c8
+        cost[7] = price(space, true_time8)
     else:
         cv2.polylines(frame, [np.array(area8, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('8'), (527, 406), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[7]=0
+        cv2.putText(frame, str('8'), (524, 406), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[7] > 0:
+            print(f"price of slot 8 is {cost[7]}")
+        cost[7] = 0
     if a9 == 1:
         cv2.polylines(frame, [np.array(area9, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('9'), (591, 398), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time9 = time.time()
         true_time9 += current_time9 - start_time
         start_time = current_time9
-        c9 = price(space, true_time9)
-        cost[8] = c9
+        cost[8] = price(space, true_time9)
+
     else:
         cv2.polylines(frame, [np.array(area9, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('9'), (591, 398), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[8]=0
+        cv2.putText(frame, str('9'), (591, 398), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[8] > 0:
+            print(f"price of slot 9 is {cost[8]}")
+        cost[8] = 0
     if a10 == 1:
         cv2.polylines(frame, [np.array(area10, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('10'), (649, 384), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time10 = time.time()
         true_time10 += current_time10 - start_time
         start_time = current_time10
-        c10 = price(space, true_time10)
-        cost[9] = c10
+        cost[9] = price(space, true_time10)
+
     else:
         cv2.polylines(frame, [np.array(area10, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('10'), (649, 384), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[9]=0
+        cv2.putText(frame, str('10'), (649, 384), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[9] > 0:
+            print(f"price of slot 10 is {cost[9]}")
+        cost[9] = 0
     if a11 == 1:
         cv2.polylines(frame, [np.array(area11, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('11'), (697, 377), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time11 = time.time()
         true_time11 += current_time11 - start_time
         start_time = current_time11
-        c11 = price(space, true_time11)
-        cost[10] = c11
+        cost[10] = price(space, true_time11)
+
     else:
         cv2.polylines(frame, [np.array(area11, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('11'), (697, 377), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[10]=0
+        cv2.putText(frame, str('11'), (697, 377), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[10] > 0:
+            print(f"price of slot 11 is {cost[10]}")
+        cost[10] = 0
     if a12 == 1:
         cv2.polylines(frame, [np.array(area12, np.int32)], True, (0, 0, 255), 2)
         cv2.putText(frame, str('12'), (752, 371), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+
         current_time12 = time.time()
         true_time12 += current_time12 - start_time
         start_time = current_time12
-        c12 = price(space, true_time12)
-        cost[11] = c12
+        cost[11] = price(space, true_time12)
     else:
         cv2.polylines(frame, [np.array(area12, np.int32)], True, (0, 255, 0), 2)
-        cv2.putText(frame, str('12'), (752, 371), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cost[11]=0
+        cv2.putText(frame, str('12'), (752, 371), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 1)
+        if cost[11] > 0:
+            print(f"price of slot 12 is {cost[11]}")
+        cost[11] = 0
 
     cv2.putText(frame, str(space), (23, 30), cv2.FONT_HERSHEY_PLAIN, 3, (255, 255, 255), 2)
 
