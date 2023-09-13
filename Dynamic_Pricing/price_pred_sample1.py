@@ -3,27 +3,20 @@ import pandas as pd
 import numpy as np
 from ultralytics import YOLO
 import time
+from timeit import default_timer as timer
 import random
-import torch
 
-torch.cuda.set_device(0) 
 
-# Check if GPU is available and set the device accordingly
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print(device)
-# Load the YOLO model
-model = YOLO("yolov8s.pt")
+model = YOLO('yolov8s.pt')
 
-# Move the model to the specified device
-model.to(device)
 
 
 def RGB(event, x, y, flags, param):
     if event == cv2.EVENT_MOUSEMOVE:
         colorsBGR = [x, y]
         print(colorsBGR)
-start_time = time.time()
-true_time1 = true_time2 = true_time3 = true_time4 = true_time5 = true_time6 = true_time7 = true_time8 = true_time9 = true_time10 = true_time11 = true_time12 = 0.0
+#start_time = time.time()
+true_time1 = true_time2 = true_time3 = true_time4 = true_time5 = true_time6 = true_time7 = true_time8 = true_time9 = true_time10 = true_time11 = true_time12 = true_time15 = 0.0
 false_time = 0.0
 total_price = 0
 price_per_hour=0
@@ -34,18 +27,18 @@ def price(num_spots, max_hours):
         price_per_hour=25
     elif num_spots>2 and num_spots<=4:
         price_per_hour=30
-    else:
+    elif num_spots<=2:
         price_per_hour=35
     total_price = max_hours*price_per_hour/60
-    return total_price
+    return np.round(total_price)
 cost = {}
-for i in range(12):
+for i in range(15):
     cost[i] = 0
 
 cv2.namedWindow('RGB')
 cv2.setMouseCallback('RGB', RGB)
 
-cap = cv2.VideoCapture('sample_video.mp4')
+cap = cv2.VideoCapture('easy1.mp4')
 
 my_file = open("coco.txt", "r")
 data = my_file.read()
@@ -53,29 +46,36 @@ class_list = data.split("\n")
 
 area1 = [(506, 326), (596, 319), (622, 363), (502, 367)]
 
-area2 = [(598, 320), (626, 364), (697, 356), (666, 307)]
+area2 = [(602, 313), (629, 364), (699, 360), (670, 308)]
 
-area3 = [(675, 319), (709, 359), (769, 352), (722, 319)]
+area3 = [(679, 319), (718, 361), (776, 354), (733, 295)]
 
-area4 = [(749, 315), (785, 354), (834, 347), (798, 295)]
+area4 = [(743, 303), (785, 351), (838, 345), (792, 299)]
 
-area5 = [(801, 297), (846, 290), (895, 335), (850, 341)]
+area5 = [(794, 294), (846, 288), (894, 337), (853, 343)]
 
-area6 = [(854, 290), (898, 335), (941, 330), (902, 291)]
+area6 = [(853, 286), (889, 335), (942, 323), (897, 278)]
 
 area7 = [(424, 366), (442, 346), (302, 339), (276, 363)]
 
 area8 = [(440, 347), (313, 340), (330, 300), (449, 311)]
 
-area9 = [(419, 294), (449, 290), (466, 269), (431, 273)]
+area10 = [(404, 294), (422, 274), (392, 278), (371, 291) ]
 
-area10 = [(370, 293), (393, 275), (423, 275), (409, 294)]
+area9 = [(414, 291), (451, 292), (464, 263), (433, 263)]
 
 area11 = [(361, 292), (384, 278), (352, 277), (330, 291)]
 
 area12 = [(289, 294), (318, 277), (346, 278), (319, 294)]
 
-while True:
+area13 = [(284, 294), (309, 276), (282, 277), (250, 291)]
+
+area14 = [(248, 291), (278, 276), (242, 276), (202, 290)]
+
+area15 = [(150, 290), (182, 289), (215, 275), (192, 263)]
+
+while (cap.isOpened()):
+    start_time = time.time()
     ret, frame = cap.read()
     if not ret:
         break
@@ -85,8 +85,7 @@ while True:
     results = model.predict(frame)
     #   print(results)
     a = results[0].boxes.data
-    px = pd.DataFrame(a.cpu().numpy()).astype("float")
-
+    px = pd.DataFrame(a).astype("float")
     #    print(px)
     list1 = []
     list2 = []
@@ -100,6 +99,9 @@ while True:
     list10 = []
     list11 = []
     list12 = []
+    list13 = []
+    list14 = []
+    list15 = []
 
     for index, row in px.iterrows():
         #        print(row)
@@ -177,6 +179,18 @@ while True:
 
                 cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
                 list12.append(c)
+            results13 = cv2.pointPolygonTest(np.array(area13, np.int32), ((cx, cy)), False)
+            if results13 >= 0:
+                cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
+                list13.append(c)
+            results14 = cv2.pointPolygonTest(np.array(area14, np.int32), ((cx, cy)), False)
+            if results14 >= 0:
+                cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
+                list14.append(c)
+            results15 = cv2.pointPolygonTest(np.array(area15, np.int32), ((cx, cy)), False)
+            if results15 >= 0:
+                cv2.circle(frame, (cx, cy), 3, (0, 0, 255), -1)
+                list15.append(c)
 
     a1 = (len(list1))
     a2 = (len(list2))
@@ -190,32 +204,38 @@ while True:
     a10 = (len(list10))
     a11 = (len(list11))
     a12 = (len(list12))
-    o = (a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12)
-    space = (12 - o)
-    print(space)
+    a13 = (len(list13))
+    a14 = (len(list14))
+    a15 = (len(list15))
+    o = (a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12 + a13 + a14 + a15)
+    space = (15 - o)
+
     if a1 == 1:
         cv2.polylines(frame, [np.array(area1, np.int32)], True, (0, 0, 255), 2)
 
         current_time1 = time.time()
         true_time1 += current_time1 - start_time
         start_time = current_time1
-        c1 = price(space, true_time1)
-        cost[0] = c1
+        cost[0] = price(space, true_time1)
+
     else:
         cv2.polylines(frame, [np.array(area1, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[0]>0:
+            print(f"price of slot 1 is {cost[0]}")
         cost[0] = 0
     if a2 == 1:
+
         cv2.polylines(frame, [np.array(area2, np.int32)], True, (0, 0, 255), 2)
 
         current_time2 = time.time()
         true_time2 += current_time2 - start_time
-        start_time = current_time2
-        c2 = price(space, true_time2)
-        cost[1] = c2
+        #start_time = current_time2
+
+        cost[1] = price(space, true_time2)
     else:
         cv2.polylines(frame, [np.array(area2, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[1]>0:
+            print(f"price of slot 2 is {cost[1]}")
         cost[1]=0
     if a3 == 1:
         cv2.polylines(frame, [np.array(area3, np.int32)], True, (0, 0, 255), 2)
@@ -223,11 +243,12 @@ while True:
         current_time3 = time.time()
         true_time3 += current_time3 - start_time
         start_time = current_time3
-        c3 = price(space, true_time3)
-        cost[2] = c3
+        cost[2] = price(space, true_time3)
+
     else:
         cv2.polylines(frame, [np.array(area3, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[2]>0:
+            print(f"price of slot 3 is {cost[2]}")
         cost[2]=0
     if a4 == 1:
         cv2.polylines(frame, [np.array(area4, np.int32)], True, (0, 0, 255), 2)
@@ -235,35 +256,38 @@ while True:
         current_time4 = time.time()
         true_time4 += current_time4 - start_time
         start_time = current_time4
-        c4 = price(space, true_time4)
-        cost[3] = c4
+        cost[3] = price(space, true_time4)
+
     else:
         cv2.polylines(frame, [np.array(area4, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[3]>0:
+            print(f"price of slot 4 is {cost[3]}")
         cost[3]=0
     if a5 == 1:
         cv2.polylines(frame, [np.array(area5, np.int32)], True, (0, 0, 255), 2)
 
         current_time5 = time.time()
         true_time5 += current_time5 - start_time
-        start_time = current_time5
-        c5 = price(space, true_time5)
-        cost[4] = c5
+        #start_time = current_time5
+        cost[4] = price(space, true_time5)
+
     else:
         cv2.polylines(frame, [np.array(area5, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[4]>0:
+            print(f"price of slot 5 is {cost[4]}")
         cost[4]=0
     if a6 == 1:
         cv2.polylines(frame, [np.array(area6, np.int32)], True, (0, 0, 255), 2)
 
         current_time6 = time.time()
         true_time6 += current_time6 - start_time
-        start_time = current_time6
-        c6 = price(space, true_time6)
-        cost[5] = c6
+        #start_time = current_time6
+        cost[5] = price(space, true_time6)
+
     else:
         cv2.polylines(frame, [np.array(area6, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[5]>0:
+            print(f"price of slot 6 is {cost[5]}")
         cost[5]=0
     if a7 == 1:
         cv2.polylines(frame, [np.array(area7, np.int32)], True, (0, 0, 255), 2)
@@ -271,11 +295,12 @@ while True:
         current_time7 = time.time()
         true_time7 += current_time7 - start_time
         start_time = current_time7
-        c7 = price(space, true_time7)
-        cost[6] = c7
+        cost[6] = price(space, true_time7)
+
     else:
         cv2.polylines(frame, [np.array(area7, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[6]>0:
+            print(f"price of slot 7 is {cost[6]}")
         cost[6]=0
     if a8 == 1:
         cv2.polylines(frame, [np.array(area8, np.int32)], True, (0, 0, 255), 2)
@@ -283,11 +308,11 @@ while True:
         current_time8 = time.time()
         true_time8 += current_time8 - start_time
         start_time = current_time8
-        c8 = price(space, true_time8)
-        cost[7] = c8
+        cost[7] = price(space, true_time8)
     else:
         cv2.polylines(frame, [np.array(area8, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[7]>0:
+            print(f"price of slot 8 is {cost[7]}")
         cost[7]=0
     if a9 == 1:
         cv2.polylines(frame, [np.array(area9, np.int32)], True, (0, 0, 255), 2)
@@ -295,11 +320,12 @@ while True:
         current_time9 = time.time()
         true_time9 += current_time9 - start_time
         start_time = current_time9
-        c9 = price(space, true_time9)
-        cost[8] = c9
+        cost[8] = price(space, true_time9)
+
     else:
         cv2.polylines(frame, [np.array(area9, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[8]>0:
+            print(f"price of slot 9 is {cost[8]}")
         cost[8]=0
     if a10 == 1:
         cv2.polylines(frame, [np.array(area10, np.int32)], True, (0, 0, 255), 2)
@@ -307,11 +333,12 @@ while True:
         current_time10 = time.time()
         true_time10 += current_time10 - start_time
         start_time = current_time10
-        c10 = price(space, true_time10)
-        cost[9] = c10
+        cost[9] = price(space, true_time10)
+
     else:
         cv2.polylines(frame, [np.array(area10, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[9]>0:
+            print(f"price of slot 10 is {cost[9]}")
         cost[9]=0
     if a11 == 1:
         cv2.polylines(frame, [np.array(area11, np.int32)], True, (0, 0, 255), 2)
@@ -319,11 +346,12 @@ while True:
         current_time11 = time.time()
         true_time11 += current_time11 - start_time
         start_time = current_time11
-        c11 = price(space, true_time11)
-        cost[10] = c11
+        cost[10] = price(space, true_time11)
+
     else:
         cv2.polylines(frame, [np.array(area11, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[10]>0:
+            print(f"price of slot 11 is {cost[10]}")
         cost[10]=0
     if a12 == 1:
         cv2.polylines(frame, [np.array(area12, np.int32)], True, (0, 0, 255), 2)
@@ -331,12 +359,39 @@ while True:
         current_time12 = time.time()
         true_time12 += current_time12 - start_time
         start_time = current_time12
-        c12 = price(space, true_time12)
-        cost[11] = c12
+        cost[11] = price(space, true_time12)
     else:
         cv2.polylines(frame, [np.array(area12, np.int32)], True, (0, 255, 0), 2)
-
+        if cost[11]>0:
+            print(f"price of slot 12 is {cost[11]}")
         cost[11]=0
+    if a13 == 1:
+        cv2.polylines(frame, [np.array(area13, np.int32)], True, (0, 0, 255), 2)
+        #cost[12] = price(space, true_time10)
+
+    else:
+        cv2.polylines(frame, [np.array(area13, np.int32)], True, (0, 255, 0), 2)
+
+    if a14 == 1:
+        cv2.polylines(frame, [np.array(area14, np.int32)], True, (0, 0, 255), 2)
+
+
+
+    else:
+        cv2.polylines(frame, [np.array(area14, np.int32)], True, (0, 255, 0), 2)
+
+    if a15 == 1:
+        cv2.polylines(frame, [np.array(area15, np.int32)], True, (0, 0, 255), 2)
+
+        current_time15 = time.time()
+        true_time15 += current_time15 - start_time
+        start_time = current_time15
+        cost[14] = price(space, true_time15)
+    else:
+        cv2.polylines(frame, [np.array(area15, np.int32)], True, (0, 255, 0), 2)
+        if cost[11]>0:
+            print(f"price of slot 15 is {cost[14]}")
+        cost[14]=0
 
     cv2.putText(frame, str(space), (23, 30), cv2.FONT_HERSHEY_PLAIN, 3, (255, 255, 255), 2)
 
